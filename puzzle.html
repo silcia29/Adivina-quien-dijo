@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puzzle Interactivo</title>
+  <script src="script1.js" defer></script>
+ <style>
+    body {
+      background: #fef7ea;
+      font-family: 'Arial Rounded MT Bold', sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .puzzle-board {
+      width: 360px;
+      margin: 2rem auto;
+      display: grid;
+      grid-template-columns: repeat(3, 120px);
+      gap: 10px;
+      position: relative;
+    }
+
+    .piece {
+      width: 120px;
+      height: 120px;
+      background-color: #84e265;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: #000;
+      font-weight: bold;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: all 0.5s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      clip-path: path('M 0 60 Q 0 0 60 0 Q 120 0 120 60 Q 120 120 60 120 Q 0 120 0 60 Z');
+    }
+
+    .piece.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background-color: #000;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 2rem;
+    }
+
+    .final-message {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧩 Mis aprendizajes clave</h1>
+  <button onclick="armarPuzzle()">Descubre mis aprendizajes</button>
+
+  <div class="puzzle-board" id="puzzle"></div>
+
+  <div class="final-message" id="final" style="display: none">
+    <p>Todo este viaje lo resumo en una sola palabra:</p>
+    <h2><strong>PRESENCIA</strong></h2>
+    <p>¿Con qué palabra te quedas tú? Déjala en el chat.</p>
+  </div>
+
+  <script>
+    const palabras = [
+      "Presencia", "Inspirar", "Escuchar",
+      "Confiar", "Transformar", "Sentido",
+      "Humanidad", "Liderar", "Emociones"
+    ];
+
+    function armarPuzzle() {
+      const puzzle = document.getElementById('puzzle');
+      puzzle.innerHTML = '';
+
+      palabras.forEach((palabra, i) => {
+        const pieza = document.createElement('div');
+        pieza.className = 'piece';
+        pieza.textContent = palabra;
+        puzzle.appendChild(pieza);
+
+        setTimeout(() => {
+          pieza.classList.add('visible');
+        }, i * 300);
+      });
+
+      setTimeout(() => {
+        document.getElementById('final').style.display = 'block';
+      }, palabras.length * 300 + 500);
+    }
+  </script>
+</body>
+</html>

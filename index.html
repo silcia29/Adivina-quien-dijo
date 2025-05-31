@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adivina Quién Dijo Qué</title>
+  <script src="script.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&family=Kalam&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: #a9d8db;
+     background-image: url('imagenn.png');
+     background-size: 100% 100%;
+     background-repeat: no-repeat;
+     background-position: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .lights, .lasers {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .lights {
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 11%) 0 0,
+                  radial-gradient(circle, rgba(255,255,255,0.15) 10%, transparent 11%) 50px 50px;
+      background-size: 100px 100px;
+      animation: flicker 3s infinite ease-in-out;
+    }
+
+    .lasers::before, .lasers::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: linear-gradient(to bottom, red, yellow, lime, cyan, blue, violet);
+      animation: laserMove 2s linear infinite;
+      opacity: 0.7;
+    }
+
+    .lasers::before {
+      left: 0;
+    }
+
+    .lasers::after {
+      right: 0;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes laserMove {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    .start-screen, .game-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .start-screen.active, .game-screen.active {
+      display: flex;
+    }
+
+    h1 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 3rem;
+  color: #ff5722;
+  text-shadow: 2px 2px #fff, 4px 4px #000;
+  animation: pop 1s ease-out;
+}
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+    .intro {
+  font-family: 'Kalam', cursive;
+  font-size: 1.4rem;
+  color: #1c1c1c;
+  text-align: center;
+  max-width: 800px;
+  line-height: 1.6;
+  margin: 1.5rem 0;
+}
+
+    @keyframes glow {
+      from { box-shadow: 0 0 5px #f1c40f; }
+      to { box-shadow: 0 0 20px #f1c40f; }
+    }
+
+    
+
+    button {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #f71e1e, #ff7b00);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  overflow: hidden;
+  animation: bounce 2s infinite;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: skewX(-20deg);
+  transition: left 0.5s;
+}
+
+button:hover::before {
+  left: 130%;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #f9d423, #ff4e50);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+    button:hover {
+      transform: scale(1.05);
+      background-color: #5dade2;
+    }
+
+    .quote-box {
+     
+  background-color: #ffffffdd;
+  color: #2c3e50;
+  border: 2px solid #ffd54f;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  animation: slideIn 0.6s ease-out;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .card {
+       background-color: #40abf3;
+  border: 2px solid #161818;
+  color: #ffffff;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.2s, color 0.2s;
+  animation: fadeInUp 0.5s ease both;
+  display: inline-block;
+  border-radius: 10px;
+  transition: transform 0.3s ease, background-color 0.2s, color 0.2s;
+  transition: transform 0.3s ease, background-color 0.2s, color 0.2s;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+    }
+
+    .card:hover {
+     background-color: rgb(208, 255, 0);
+  color: #000;
+  transform: scale(1.1) perspective(600px) rotateX(5deg);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .emoji {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .label {
+      margin-top: 0.5rem;
+      font-size: 0.7rem;
+    }
+
+    .feedback {
+       background: transparent;
+  color: #2c3e50;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 1rem;
+    }
+  @keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+<body>
+  <div class="lights"></div>
+  <div class="lasers"></div>
+  <div class="start-screen active" id="start">
+    <h1>🎲 Adivina Quién Dijo Qué</h1>
+    <p class="intro">Como si estuvieras sobre una mesa de juego real, selecciona el módulo al que pertenece cada frase. ¡Vamos!</p>
+    <button onclick="iniciarJuego()">🎯 Comenzar Juego</button>
+  </div>
+
+  <div class="game-screen" id="game">
+    <div class="quote-box" id="quote">Cargando frase...</div>
+    <div class="grid" id="grid"></div>
+    <div class="feedback" id="feedback"></div>
+    <div id="link-final" style="display: none; text-align: center; margin-top: 1.5rem;">
+  <a href="puzzle.html" class="btn-puzzle">✨ Ver Reflexión Final</a>
+</div>
+  </div>
+  
+
+  
