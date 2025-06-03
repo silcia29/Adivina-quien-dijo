@@ -8,22 +8,10 @@ const frases = [
   { texto: "El mapa no es el territorio.", modulo: "PNL para el Liderazgo Personal" },
   { texto: "El equipo también es un sistema con identidad propia.", modulo: "Coaching de Equipos y Liderazgo" },
   { texto: "No puedes guiar a nadie a un lugar al que tú no has ido.", modulo: "Fundamentos del Coaching" },
-  { texto: "Las conversaciones son el corazón de los equipos.", modulo: "Coaching de Equipos y Liderazgo" },
-  { texto: "La emoción dura solo 90 segundos... si no la alimentas con tus pensamientos.", modulo: "Neuroliderazgo y Coaching" },
   { texto: "No hay fracasos, solo resultados.", modulo: "PNL para el Liderazgo Personal" },
-  { texto: "El coaching es más una forma de ser que una técnica.", modulo: "Fundamentos del Coaching" },
   { texto: "Las palabras crean mundos.”", modulo: "Coaching Ontológico" },
-  { texto: "No todo grupo es un equipo.", modulo: "Coaching de Equipos y Liderazgo" },
-  { texto: "No vemos las cosas como son, sino como somos.", modulo: "Coaching Ontológico" },
   { texto: "No se trata de quién tiene la razón, sino de qué necesita el sistema.", modulo: "Coaching de Equipos y Liderazgo" },
-  { texto: "Quien tiene más opciones, tiene más poder.", modulo: "PNL para el Liderazgo Personal" },
   { texto: "Lo que no se comunica bien, se interpreta mal.", modulo: "Neuroliderazgo y Coaching" },
-  { texto: "La transformación no es enseñar, sino despertar.", modulo: "Fundamentos del Coaching" },
-  { texto: "Tu estado interno determina tu resultado externo.", modulo: "PNL para el Liderazgo Personal" },
-  { texto: "El cerebro premia la coherencia entre emoción y acción.", modulo: "Neuroliderazgo y Coaching" },
-  { texto: "La calidad de tu vida depende de la calidad de tu comunicación interna.", modulo: "PNL para el Liderazgo Personal" },
-  { texto: "Cada persona tiene dentro de sí los recursos que necesita.", modulo: "Fundamentos del Coaching" },
-  { texto: "La dopamina responde tanto a metas como a pequeños logros.", modulo: "Neuroliderazgo y Coaching" }
 ];
 
 const modulos = [
